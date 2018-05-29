@@ -1,6 +1,6 @@
 # go-nicehash
 
-A Golang wrapper for [nicehash](https://www.nicehash.com/) API.
+A Golang wrapper for the [nicehash](https://www.nicehash.com/) API.
 
 ## Documentation
 Full API Documentation can be found at https://www.nicehash.com/doc-api
@@ -27,7 +27,8 @@ package main
 
 import (
 	"os"
-	"go-nicehash"
+
+	"github.com/blombard/go-nicehash"
 )
 
 //not required if you only use the public API
