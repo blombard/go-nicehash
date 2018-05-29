@@ -26,7 +26,7 @@ type BaseInfo struct {
 func (n *Nicehash) Ping() (info BaseInfo, err error) {
 
 	reqUrl := fmt.Sprintf("")
-	_, err = n.client.do("GET", reqUrl, "", false, &info)
+	_, err = n.client.do("GET", reqUrl, "public", &info)
 	if err != nil {
 		return
 	}
@@ -60,7 +60,7 @@ type CurrentProfitability struct {
 func (n *Nicehash) GetCurrentProfitability() (profitability CurrentProfitability, err error) {
 
 	reqUrl := fmt.Sprintf("?method=stats.global.current")
-	_, err = n.client.do("GET", reqUrl, "", false, &profitability)
+	_, err = n.client.do("GET", reqUrl, "public", &profitability)
 	if err != nil {
 		return
 	}
@@ -77,7 +77,7 @@ func (n *Nicehash) GetCurrentProfitability() (profitability CurrentProfitability
 func (n *Nicehash) GetCurrentProfitabilityLocation(location int64) (profitability CurrentProfitability, err error) {
 
 	reqUrl := fmt.Sprintf("?method=stats.global.current&%d", location)
-	_, err = n.client.do("GET", reqUrl, "", false, &profitability)
+	_, err = n.client.do("GET", reqUrl, "public", &profitability)
 	if err != nil {
 		return
 	}
@@ -105,7 +105,7 @@ type AverageProfitability struct {
 func (n *Nicehash) GetAverageProfitability() (stats AverageProfitability, err error) {
 
 	reqUrl := fmt.Sprintf("?method=stats.global.24h")
-	_, err = n.client.do("GET", reqUrl, "", false, &stats)
+	_, err = n.client.do("GET", reqUrl, "public", &stats)
 	if err != nil {
 		return
 	}
@@ -138,10 +138,10 @@ type CurrentStats struct {
   Parameters:
     - addr - Provider's BTC address.
 */
-func (n *Nicehash) GetCurrentStats(btc_addr string) (stats CurrentStats, err error) {
+func (n *Nicehash) GetCurrentStats() (stats CurrentStats, err error) {
 
-	reqUrl := fmt.Sprintf("?method=stats.provider&addr=%s", btc_addr)
-	_, err = n.client.do("GET", reqUrl, "", false, &stats)
+	reqUrl := fmt.Sprintf("?method=stats.provider&addr=")
+	_, err = n.client.do("GET", reqUrl, "addr", &stats)
 	if err != nil {
 		return
 	}
@@ -176,10 +176,10 @@ type DetailedStats struct {
     - addr - Provider's BTC address.
     - from - Get history data from this time (UNIX timestamp). Put 0 by default and it returns the complete history.
 */
-func (n *Nicehash) GetDetailedStats(btc_addr string, timestamp int64) (stats DetailedStats, err error) {
+func (n *Nicehash) GetDetailedStats(timestamp int64) (stats DetailedStats, err error) {
 
-	reqUrl := fmt.Sprintf("?method=stats.provider.ex&addr=%s", btc_addr)
-	_, err = n.client.do("GET", reqUrl, "", false, &stats)
+	reqUrl := fmt.Sprintf("?method=stats.provider.ex&addr=")
+	_, err = n.client.do("GET", reqUrl, "addr", &stats)
 
 	if err != nil {
 		return
@@ -204,10 +204,10 @@ type WorkerStats struct {
     - addr - Provider's BTC address.
     - algo - Algorithm marked with ID.
 */
-func (n *Nicehash) GetWorkerStats(btc_addr string, algo int64) (stats WorkerStats, err error) {
+func (n *Nicehash) GetWorkerStats(algo int64) (stats WorkerStats, err error) {
 
-	reqUrl := fmt.Sprintf("?method=stats.provider.workers&addr=%s&algo=%d", btc_addr, algo)
-	_, err = n.client.do("GET", reqUrl, "", false, &stats)
+	reqUrl := fmt.Sprintf("?method=stats.provider.workers&algo=%d", algo)
+	_, err = n.client.do("GET", reqUrl, "addr", &stats)
 
 	if err != nil {
 		return
@@ -243,7 +243,7 @@ type AllOrders struct {
 func (n *Nicehash) GetAllOrders(location int64, algo int64) (orders AllOrders, err error) {
 
 	reqUrl := fmt.Sprintf("?method=orders.get&location=%d&algo=%d", location, algo)
-	_, err = n.client.do("GET", reqUrl, "", false, &orders)
+	_, err = n.client.do("GET", reqUrl, "public", &orders)
 
 	if err != nil {
 		return
@@ -273,7 +273,7 @@ type MutiAlgo struct {
 func (n *Nicehash) GetMutiAlgo() (info MutiAlgo, err error) {
 
 	reqUrl := fmt.Sprintf("?method=multialgo.info")
-	_, err = n.client.do("GET", reqUrl, "", false, &info)
+	_, err = n.client.do("GET", reqUrl, "public", &info)
 
 	if err != nil {
 		return
@@ -303,7 +303,7 @@ type SimpleMutiAlgo struct {
 func (n *Nicehash) GetSimpleMutiAlgo() (info SimpleMutiAlgo, err error) {
 
 	reqUrl := fmt.Sprintf("?method=multialgo.info")
-	_, err = n.client.do("GET", reqUrl, "", false, &info)
+	_, err = n.client.do("GET", reqUrl, "public", &info)
 
 	if err != nil {
 		return
@@ -336,7 +336,7 @@ type InfoHashingPower struct {
 func (n *Nicehash) GetInfoHashingPower() (info InfoHashingPower, err error) {
 
 	reqUrl := fmt.Sprintf("?method=buy.info")
-	_, err = n.client.do("GET", reqUrl, "", false, &info)
+	_, err = n.client.do("GET", reqUrl, "public", &info)
 
 	if err != nil {
 		return

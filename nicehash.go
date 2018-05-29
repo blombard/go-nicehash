@@ -15,7 +15,7 @@ type Nicehash struct {
 	client *Client
 }
 
-func New(API_id, API_key string) *Nicehash {
-	client := NewClient(API_id, API_key)
+func New(API_id, API_key, BTC_addr string) *Nicehash {
+	client := NewClient(API_id, API_key, BTC_addr)
 	return &Nicehash{client}
 }

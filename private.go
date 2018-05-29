@@ -26,8 +26,8 @@ type CurrentBalance struct {
 */
 func (n *Nicehash) GetCurrentBalance() (info CurrentBalance, err error) {
 
-	addUrl := fmt.Sprintf("?method=balance")
-	_, err = n.client.do("GET", "", addUrl, true, &info)
+	reqUrl := fmt.Sprintf("?method=balance")
+	_, err = n.client.do("GET", reqUrl, "private", &info)
 	if err != nil {
 		return
 	}

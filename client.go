@@ -15,6 +15,7 @@ import (
 type Client struct {
 	API_id     string
 	API_key    string
+	BTC_addr   string
 	httpClient *http.Client
 }
 
@@ -36,27 +37,34 @@ func handleError(resp *http.Response) error {
 }
 
 // Creates a new Nicehash HTTP Client
-func NewClient(API_id, API_key string) (c *Client) {
+func NewClient(API_id, API_key, BTC_addr string) (c *Client) {
 	client := &Client{
 		API_id:     API_id,
 		API_key:    API_key,
+		BTC_addr:   BTC_addr,
 		httpClient: &http.Client{},
 	}
 	return client
 }
 
-func (c *Client) do(method string, addURL string, endURL string, auth bool, result interface{}) (resp *http.Response, err error) {
+func (c *Client) do(method, endURL, typeAuth string, result interface{}) (resp *http.Response, err error) {
 
-	if auth {
-
+	switch typeAuth {
+	case "private":
 		if len(c.API_id) == 0 || len(c.API_key) == 0 {
 			err = errors.New("Private endpoints require you to set an API ID and API KEY")
 			return
 		}
-		addURL += "&id=" + c.API_id + "&key=" + c.API_key
+		endURL += "&id=" + c.API_id + "&key=" + c.API_key
+	case "addr":
+		if len(c.BTC_addr) == 0 {
+			err = errors.New("You need to provide a valid wallet address")
+			return
+		}
+		endURL += c.BTC_addr
 	}
 
-	fullUrl := fmt.Sprintf("%s%s%s", BaseUrl, addURL, endURL)
+	fullUrl := fmt.Sprintf("%s%s", BaseUrl, endURL)
 
 	req, err := http.NewRequest(method, fullUrl, nil)
 	if err != nil {
