@@ -34,7 +34,7 @@ func (n *Nicehash) Ping() (info BaseInfo, err error) {
 	return
 }
 
-type CurrentGlobalStats struct {
+type CurrentProfitability struct {
 	Result struct {
 		Stats []struct {
 			ProfitabilityAboveLtc string `json:"profitability_above_ltc,omitempty"`
@@ -57,10 +57,10 @@ type CurrentGlobalStats struct {
   Parameters:
     - None
 */
-func (n *Nicehash) GetCurrentProfitability() (stats CurrentGlobalStats, err error) {
+func (n *Nicehash) GetCurrentProfitability() (profitability CurrentProfitability, err error) {
 
 	reqUrl := fmt.Sprintf("?method=stats.global.current")
-	_, err = n.client.do("GET", reqUrl, "", false, &stats)
+	_, err = n.client.do("GET", reqUrl, "", false, &profitability)
 	if err != nil {
 		return
 	}
@@ -74,10 +74,10 @@ func (n *Nicehash) GetCurrentProfitability() (stats CurrentGlobalStats, err erro
   Parameters:
     - location: 0 for Europe, 1 for USA. This parameter is optional and method will return combined statistics if not provided.
 */
-func (n *Nicehash) GetCurrentProfitabilityLocation(location int64) (stats CurrentGlobalStats, err error) {
+func (n *Nicehash) GetCurrentProfitabilityLocation(location int64) (profitability CurrentProfitability, err error) {
 
 	reqUrl := fmt.Sprintf("?method=stats.global.current&%d", location)
-	_, err = n.client.do("GET", reqUrl, "", false, &stats)
+	_, err = n.client.do("GET", reqUrl, "", false, &profitability)
 	if err != nil {
 		return
 	}
@@ -113,7 +113,7 @@ func (n *Nicehash) GetAverageProfitability() (stats AverageProfitability, err er
 	return
 }
 
-type AverageStats struct {
+type CurrentStats struct {
 	Result struct {
 		Stats []struct {
 			Balance       string `json:"balance"`
@@ -138,7 +138,7 @@ type AverageStats struct {
   Parameters:
     - addr - Provider's BTC address.
 */
-func (n *Nicehash) GetAverageStats(btc_addr string) (stats AverageStats, err error) {
+func (n *Nicehash) GetCurrentStats(btc_addr string) (stats CurrentStats, err error) {
 
 	reqUrl := fmt.Sprintf("?method=stats.provider&addr=%s", btc_addr)
 	_, err = n.client.do("GET", reqUrl, "", false, &stats)
