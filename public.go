@@ -7,9 +7,9 @@ package nicehash
 
 import (
 	"fmt"
-	//"time"
 )
 
+// BaseInfo : struct to handle callback from Ping
 type BaseInfo struct {
 	Result struct {
 		APIVersion string `json:"api_version"`
@@ -34,6 +34,7 @@ func (n *Nicehash) Ping() (info BaseInfo, err error) {
 	return
 }
 
+// CurrentProfitability : struct to handle callback from GetCurrentProfitability
 type CurrentProfitability struct {
 	Result struct {
 		Stats []struct {
@@ -85,6 +86,7 @@ func (n *Nicehash) GetCurrentProfitabilityLocation(location int64) (profitabilit
 	return
 }
 
+// AverageProfitability : struct to handle callback from GetAverageProfitability
 type AverageProfitability struct {
 	Result struct {
 		Stats []struct {
@@ -113,6 +115,7 @@ func (n *Nicehash) GetAverageProfitability() (stats AverageProfitability, err er
 	return
 }
 
+// CurrentStats : struct to handle callback from GetCurrentStats
 type CurrentStats struct {
 	Result struct {
 		Stats []struct {
@@ -149,6 +152,7 @@ func (n *Nicehash) GetCurrentStats() (stats CurrentStats, err error) {
 	return
 }
 
+// DetailedStats : struct to handle callback from GetDetailedStats
 type DetailedStats struct {
 	Method string `json:"method"`
 	Result struct {
@@ -188,6 +192,7 @@ func (n *Nicehash) GetDetailedStats(timestamp int64) (stats DetailedStats, err e
 	return
 }
 
+// WorkerStats : struct to handle callback from GetWorkerStats
 type WorkerStats struct {
 	Result struct {
 		Addr    string          `json:"addr"`
@@ -216,6 +221,7 @@ func (n *Nicehash) GetWorkerStats(algo int64) (stats WorkerStats, err error) {
 	return
 }
 
+// AllOrders : struct to handle callback from GetAllOrders
 type AllOrders struct {
 	Result struct {
 		Orders []struct {
@@ -252,6 +258,7 @@ func (n *Nicehash) GetAllOrders(location int64, algo int64) (orders AllOrders, e
 	return
 }
 
+// MutiAlgo : struct to handle callback from GetMutiAlgo
 type MutiAlgo struct {
 	Result struct {
 		Multialgo []struct {
@@ -282,6 +289,7 @@ func (n *Nicehash) GetMutiAlgo() (info MutiAlgo, err error) {
 	return
 }
 
+// SimpleMutiAlgo : struct to handle callback from GetSimpleMutiAlgo
 type SimpleMutiAlgo struct {
 	Result struct {
 		Simplemultialgo []struct {
@@ -312,6 +320,7 @@ func (n *Nicehash) GetSimpleMutiAlgo() (info SimpleMutiAlgo, err error) {
 	return
 }
 
+// InfoHashingPower : struct to handle callback from GetInfoHashingPower
 type InfoHashingPower struct {
 	Result struct {
 		Algorithms []struct {

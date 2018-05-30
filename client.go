@@ -61,7 +61,7 @@ func (c *Client) do(method, endURL, typeAuth string, result interface{}) (resp *
 			err = errors.New("You need to provide a valid wallet address")
 			return
 		}
-		endURL += c.BTC_addr
+		endURL += "&addr=" + c.BTC_addr
 	}
 
 	fullUrl := fmt.Sprintf("%s%s", BaseUrl, endURL)
